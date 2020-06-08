@@ -70,6 +70,11 @@ class RNWindow(object):
     def update(self):
         pass
 
+    def quick_play(self):
+        self._midout.note_on(self.note, NOTE_SPEED)
+        time.sleep(0.1)
+        self._midout.note_on(self.note, NOTE_SPEED)
+
     def draw_note(self):
         pg.draw.circle(self._screen, BLACK, NOTES.get(self._note).pos, 5)
 
@@ -90,6 +95,7 @@ class RNWindow(object):
             if event.type == midi.MIDIIN:
                 print(event)
                 if event.data1 == self.note:
+                    self.quick_play()
                     self.next_note()
             if event.type == pg.QUIT:
                 raise WantQuit()
